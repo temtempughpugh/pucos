@@ -221,8 +221,6 @@ h1 {
   box-shadow: 0 5px 10px rgba(0,0,0,0.15);
 }
 
-/* style.css に追加するスタイル */
-
 /* トリガー画像 */
 .trigger-image {
   width: 40px;
@@ -481,6 +479,8 @@ h1 {
 .celebration-emojis div:nth-child(5) { animation-delay: 0.8s; }
 .celebration-emojis div:nth-child(6) { animation-delay: 1.0s; }
 .celebration-emojis div:nth-child(7) { animation-delay: 1.2s; }
+.celebration-emojis div:nth-child(8) { animation-delay: 1.4s; }
+.celebration-emojis div:nth-child(9) { animation-delay: 1.6s; }
 
 /* アニメーションはそのまま使用 */
 @keyframes bounce {
@@ -493,4 +493,91 @@ h1 {
   60% {
     transform: translateY(-10px);
   }
+}
+
+/* チャンス画面関連のスタイル */
+.chance-notification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+}
+
+.chance-notification.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.chance-image {
+  width: 200px;
+  height: 200px;
+  background-image: url('assets/chance.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 30px;
+  animation: pulse 1s infinite alternate;
+}
+
+.chance-text {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ffdd00;
+  text-shadow: 0 0 10px #ff5500, 0 0 20px #ff5500;
+  animation: flicker 0.5s infinite alternate;
+}
+
+/* 虹色の縁アニメーション */
+@keyframes rainbow-border {
+  0% { box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.7); }
+  14% { box-shadow: 0 0 10px 5px rgba(255, 127, 0, 0.7); }
+  28% { box-shadow: 0 0 10px 5px rgba(255, 255, 0, 0.7); }
+  42% { box-shadow: 0 0 10px 5px rgba(0, 255, 0, 0.7); }
+  56% { box-shadow: 0 0 10px 5px rgba(0, 0, 255, 0.7); }
+  70% { box-shadow: 0 0 10px 5px rgba(75, 0, 130, 0.7); }
+  84% { box-shadow: 0 0 10px 5px rgba(143, 0, 255, 0.7); }
+  100% { box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.7); }
+}
+
+.rainbow-border {
+  animation: rainbow-border 2s linear infinite;
+}
+
+/* チャンス文字のフリッカーアニメーション */
+@keyframes flicker {
+  0% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+/* パルスアニメーション */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+/* デバッグチャンスボタンのスタイル */
+#debug-chance {
+  background-color: #ffdd00;
+  color: #000;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  border: 1px solid #ff5500;
+  margin: 5px;
+}
+
+#debug-chance:hover {
+  background-color: #ff5500;
+  color: white;
 }
