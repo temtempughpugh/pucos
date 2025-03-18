@@ -219,12 +219,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // トリガーの達成状況を更新
   function updateTriggerAchievement(triggerId) {
     if (triggers[triggerId]) {
+      // 初回達成の場合
+      const isFirstAchievement = !triggers[triggerId].achieved;
+      
       // カウント増加
       triggers[triggerId].count++;
       
       // 初回達成の場合
-      if (!triggers[triggerId].achieved) {
+      if (isFirstAchievement) {
         triggers[triggerId].achieved = true;
+        
+        // 初回獲得の場合はスタートボタンを2秒間無効化
+        startButton.disabled = true;
+        setTimeout(() => {
+          startButton.disabled = false;
+        }, 2000);
+        
         showNewTriggerNotification(triggerId);
       }
       
@@ -240,11 +250,11 @@ document.addEventListener('DOMContentLoaded', () => {
     notification.className = 'trigger-notification';
     notification.innerHTML = `
       <span class="notification-emoji">${triggers[triggerId].emoji}</span>
-      <span class="notification-text">新しいトリガー獲得！</span>
+      <span class="notification-text">新しい画像を獲得！</span>
     `;
     document.body.appendChild(notification);
     
-    // アニメーション後に削除
+    // アニメーション後に削除（表示時間を2秒に延長）
     setTimeout(() => {
       notification.classList.add('show');
       setTimeout(() => {
@@ -252,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
           document.body.removeChild(notification);
         }, 500);
-      }, 2000);
+      }, 2000); // ここを2000ms（2秒）に延長
     }, 100);
   }
   
@@ -445,6 +455,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function checkResult() {
     const combination = results.join('');
     
+    let isNormalResult = false; // 通常結果かどうかのフラグ
+    
     if (combination === 'ぷんこす') {
       messageBubble.textContent = '大当たり！！ ぷんこす完成！';
       setFaceDisplay('win');
@@ -492,6 +504,18 @@ document.addEventListener('DOMContentLoaded', () => {
       setFaceDisplay('normal');
       // 虹色の縁は削除
       faceDisplay.classList.remove('rainbow-border');
+      isNormalResult = true; // 通常結果フラグをオン
+    }
+    
+    // 通常以外の結果の場合は0.5秒待機
+    if (!isNormalResult) {
+      // スタートボタンを一時的に無効化して待機を表現
+      startButton.disabled = true;
+      
+      setTimeout(() => {
+        // 0.5秒後にスタートボタンを再度有効化
+        startButton.disabled = false;
+      }, 500);
     }
   }
   
