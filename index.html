@@ -2,19 +2,33 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <!-- iPhoneのダブルタップ問題を解決するための最小変更 -->
+  <!-- 拡大縮小を完全に禁止するメタタグ -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ぷんこすスロット</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* iPhoneのダブルタップ問題のみを解決する最小限のCSS */
-    #start-button, .stop-button {
+    /* 全体的にズームを防止する強力な設定 */
+    html, body {
+      touch-action: pan-x pan-y; /* ピンチズーム操作を無効化 */
+      -ms-touch-action: pan-x pan-y;
+      -webkit-overflow-scrolling: touch; /* iOSでのスクロール動作を滑らかに */
+    }
+    
+    /* ボタン操作時のズームを防止 */
+    button {
       touch-action: manipulation;
+    }
+    
+    /* ダブルタップによるテキスト選択を防止 */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
     }
   </style>
 </head>
 <body>
-  <!-- 以下は元のHTMLコードそのまま -->
   <div id="slot-app">
     <h1>ぷんこすスロット</h1>
     
@@ -55,5 +69,18 @@
   </div>
   
   <script src="script.js"></script>
+  <script>
+    // 追加のズーム防止対策（最小限のスクリプト）
+    document.addEventListener('touchmove', function(event) {
+      if (event.scale !== 1) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+    
+    // iOS Safari特有の問題に対応
+    document.documentElement.addEventListener('gesturestart', function(event) {
+      event.preventDefault();
+    }, { passive: false });
+  </script>
 </body>
 </html>
