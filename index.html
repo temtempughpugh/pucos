@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ぷんこすスロット</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="slot-app">
+    <h1>ぷんこすスロット</h1>
+    
+    <div id="chance-lamp">CHANCE!</div>
+    
+    <div id="face-display"></div>
+    
+    <div id="message-bubble">
+      <div id="message">スタートボタンを押してください！</div>
+      <div id="bubble-tail"></div>
+    </div>
+    
+    <div id="reels-container">
+      <div class="reel" id="reel0"></div>
+      <div class="reel" id="reel1"></div>
+      <div class="reel" id="reel2"></div>
+      <div class="reel" id="reel3"></div>
+    </div>
+    
+    <div id="stop-buttons">
+      <button class="stop-button" disabled data-index="0">停止</button>
+      <button class="stop-button" disabled data-index="1">停止</button>
+      <button class="stop-button" disabled data-index="2">停止</button>
+      <button class="stop-button" disabled data-index="3">停止</button>
+    </div>
+    
+    <div id="start-button-container">
+      <button id="start-button">スタート</button>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
