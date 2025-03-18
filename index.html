@@ -2,11 +2,19 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- iPhoneのダブルタップ問題を解決するための最小変更 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ぷんこすスロット</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* iPhoneのダブルタップ問題のみを解決する最小限のCSS */
+    #start-button, .stop-button {
+      touch-action: manipulation;
+    }
+  </style>
 </head>
 <body>
+  <!-- 以下は元のHTMLコードそのまま -->
   <div id="slot-app">
     <h1>ぷんこすスロット</h1>
     
@@ -43,9 +51,6 @@
       </div>
       <div id="trigger-list"></div>
       <div id="trigger-comp-message">コンプリート！</div>
-      
-      <!-- 開発用強制トリガーボタン (後で削除可能) -->
-      </div>
     </div>
   </div>
   
