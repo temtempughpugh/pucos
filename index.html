@@ -36,6 +36,30 @@
     <div id="start-button-container">
       <button id="start-button">スタート</button>
     </div>
+    
+    <div id="trigger-section">
+      <div class="trigger-header">
+        <h2>獲得画像 <span id="trigger-count">0/7種類</span></h2>
+      </div>
+      <div id="trigger-list"></div>
+      <div id="trigger-comp-message">コンプリート！</div>
+      
+      <!-- 開発用強制トリガーボタン (後で削除可能) -->
+      <div id="debug-section">
+        <h3>デバッグモード</h3>
+        <div id="debug-buttons">
+          <button class="debug-trigger" data-trigger="ぷんこす">ぷんこす</button>
+          <button class="debug-trigger" data-trigger="うんこ">うんこ</button>
+          <button class="debug-trigger" data-trigger="ちんこ">ちんこ</button>
+          <button class="debug-trigger" data-trigger="うらすじ">うらすじ</button>
+          <button class="debug-trigger" data-trigger="ちりめん">ちりめん</button>
+          <button class="debug-trigger" data-trigger="さんこん">さんこん</button>
+          <button class="debug-trigger" data-trigger="ぷんこ">ぷんこ</button>
+          <button id="debug-comp">全コンプ</button>
+          <button id="debug-reset">リセット</button>
+        </div>
+      </div>
+    </div>
   </div>
   
   <script src="script.js"></script>
