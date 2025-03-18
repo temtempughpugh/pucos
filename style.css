@@ -361,7 +361,7 @@ h1 {
   font-weight: bold;
   color: transparent;
   height: 40px;
-  transition: all 0.5s ease;
+  transition: all 1.0s ease;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -400,7 +400,7 @@ h1 {
   align-items: center;
   z-index: 1000;
   opacity: 0;
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 1.0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .trigger-notification.show {
@@ -510,7 +510,7 @@ h1 {
   z-index: 1000;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.5s ease;
+  transition: all 1.0s ease;
 }
 
 .chance-notification.show {
@@ -534,7 +534,7 @@ h1 {
   font-weight: bold;
   color: #ffdd00;
   text-shadow: 0 0 10px #ff5500, 0 0 20px #ff5500;
-  animation: flicker 0.5s infinite alternate;
+  animation: flicker 1.0s infinite alternate;
 }
 
 /* 虹色の縁アニメーション */

@@ -458,31 +458,31 @@ document.addEventListener('DOMContentLoaded', () => {
     let isNormalResult = false; // 通常結果かどうかのフラグ
     
     if (combination === 'ぷんこす') {
-      messageBubble.textContent = '大当たり！！ ぷんこす完成！';
+      messageBubble.textContent = 'おめでとう、ぷんこすの完成だね。美味しいぷんこすをどうぞ！';
       setFaceDisplay('win');
       // ぷんこす完成時にも虹色の縁を追加
       faceDisplay.classList.add('rainbow-border');
       updateTriggerAchievement('ぷんこす');
     } else if (combination.startsWith('ぷんこ') && !combination.endsWith('す')) {
-      messageBubble.textContent = 'おしい！ あと一歩！';
+      messageBubble.textContent = 'あれ...惜しいんじゃない？４択外した気分はどう？';
       setFaceDisplay('close');
       // 虹色の縁は削除
       faceDisplay.classList.remove('rainbow-border');
       updateTriggerAchievement('ぷんこ');
     } else if (combination.includes('うんこ')) {
-      messageBubble.textContent = 'うーん...ちょっと臭いかも';
+      messageBubble.textContent = 'オエ...臭いよ...';
       setFaceDisplay('stinky');
       // 虹色の縁は削除
       faceDisplay.classList.remove('rainbow-border');
       updateTriggerAchievement('うんこ');
-    } else if (combination.includes('ちんこ') || combination.includes('ちん')) {
-      messageBubble.textContent = '恥ずかしいね...';
+    } else if (combination.includes('ちんこ')) {
+      messageBubble.textContent = 'ちん...ちょっと引くわ...';
       setFaceDisplay('naughty');
       // 虹色の縁は削除
       faceDisplay.classList.remove('rainbow-border');
       updateTriggerAchievement('ちんこ');
     } else if (combination.includes('うらすじ')) {
-      messageBubble.textContent = 'うらすじって...';
+      messageBubble.textContent = 'おい、うらすじだって？';
       setFaceDisplay('surprise1');
       // 虹色の縁は削除
       faceDisplay.classList.remove('rainbow-border');
@@ -494,7 +494,7 @@ document.addEventListener('DOMContentLoaded', () => {
       faceDisplay.classList.remove('rainbow-border');
       updateTriggerAchievement('ちりめん');
     } else if (combination.includes('さんこん')) {
-      messageBubble.textContent = 'サンコン';
+      messageBubble.textContent = 'イッコンニコンサンコンです！！';
       setFaceDisplay('surprise3');
       // 虹色の縁は削除
       faceDisplay.classList.remove('rainbow-border');
