@@ -423,12 +423,12 @@ function endFeverMode() {
   function getTriggerComment(triggerId) {
     switch(triggerId) {
       case 'ぷんこす': return 'おめでとう、ぷんこすの完成だね。美味しいぷんこすをどうぞ！';
-      case 'うんこ': return 'オエ...臭いよ...';
+      case 'うんこ': return '臭......';
       case 'ちんこ': return 'ちん...ちょっと引くわ...';
-      case 'うらすじ': return 'おい、うらすじだって？';
+      case 'うらすじ': return 'おい、なんだって？';
       case 'ちりめん': return 'ちりめん';
-      case 'さんこん': return 'イッコンニコンサンコンです！！';
-      case 'ぷんこ': return 'あれ...惜しいんじゃない？４択外した気分はどう？';
+      case 'さんこん': return 'イッコンニコンサンコンデス';
+      case 'ぷんこ': return '惜しかったね。４択を外した気分はどう？';
       default: return '';
     }
   }
