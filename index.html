@@ -1,3 +1,5 @@
+<!-- index.html内の該当部分を以下のコードに置き換えてください -->
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -12,6 +14,7 @@
       touch-action: pan-x pan-y; /* ピンチズーム操作を無効化 */
       -ms-touch-action: pan-x pan-y;
       -webkit-overflow-scrolling: touch; /* iOSでのスクロール動作を滑らかに */
+      padding-top: 20px; /* 上部に余白を追加 */
     }
     
     /* ボタン操作時のズームを防止 */
@@ -27,24 +30,29 @@
       user-select: none;
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
-</head>
 </head>
 <body>
-  <div id="slot-app">
-    <h1>ぷんこすスロット</h1>
+  <!-- 全体を下げるためのマージン -->
+  <body style="padding-top: 80px; margin: 0;">
+    <div id="slot-app" style="margin-top: 20px;">
+      <h1 style="margin-top: 10px; margin-bottom: 20px;">ぷんこすスロット</h1>
+      
+      <div id="fever-banner">フィーバータイム中～</div>
+      
+      <!-- チップとチャンス表示を絶対配置から解放して通常フローに組み込む -->
+      <div style="display: flex; justify-content: space-between; margin: 0 10px 20px;">
+        <div id="chance-lamp" style="position: static; width: auto; padding: 5px 10px;">CHANCE!</div>
+        <div id="chip-display" style="position: static;">チップ: <span id="chip-count">200</span></div>
+      </div>
+      
+      <div id="face-display"></div>
+      
+      <div id="message-bubble">
+        <div id="message">スタートボタンを押してください！</div>
+        <div id="bubble-tail"></div>
+      </div>
     
-    <div id="fever-banner">フィーバータイム中～</div>
-    <div id="chance-lamp">CHANCE!</div>
-    <div id="chip-display">チップ: <span id="chip-count">200</span></div>
-    
-    <div id="face-display"></div>
-    
-    <div id="message-bubble">
-      <div id="message">スタートボタンを押してください！</div>
-      <div id="bubble-tail"></div>
-    </div>
-    
+    <!-- 以下は変更なし -->
     <div id="reels-container">
       <div class="fever-image left"></div>
       <div class="reel" id="reel0"></div>
@@ -99,38 +107,6 @@
     document.documentElement.addEventListener('gesturestart', function(event) {
       event.preventDefault();
     }, { passive: false });
-    (function() {
-      // すべてのタッチイベントでズーム操作を無効化
-      document.addEventListener('touchstart', function(event) {
-        if (event.touches.length > 1) {
-          event.preventDefault();
-        }
-      }, { passive: false });
-      
-      var lastTouchEnd = 0;
-      document.addEventListener('touchend', function(event) {
-        // 300ms以内の2回タップを検出して防止（ダブルタップズーム対策）
-        var now = Date.now();
-        if (now - lastTouchEnd <= 300) {
-          event.preventDefault();
-        }
-        lastTouchEnd = now;
-      }, { passive: false });
-      
-      // iOS特有のジェスチャーを無効化
-      document.addEventListener('gesturechange', function(event) {
-        event.preventDefault();
-      });
-      
-      document.addEventListener('gestureend', function(event) {
-        event.preventDefault();
-      });
-    })();
-    
-    // クリックイベントの即時反応（300ms遅延の解消）
-    document.addEventListener('DOMContentLoaded', function() {
-      FastClick.attach(document.body);
-    });
   </script>
 </body>
 </html>

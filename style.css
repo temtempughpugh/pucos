@@ -1250,3 +1250,38 @@ body {
   padding: clamp(8px, 3vw, 12px) clamp(16px, 6vw, 24px);
   font-size: clamp(0.9rem, 4vw, 1.1rem);
 }
+
+/* チップ表示スタイルの改善 - より視認性を高める */
+#chip-display {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #ff9500; /* より鮮やかなオレンジ色に変更 */
+  color: #000; /* テキストをより暗く */
+  padding: 6px 14px; /* パディングを少し増やす */
+  border-radius: 20px; /* より丸みを持たせる */
+  font-weight: bold;
+  border: 3px solid #333; /* ボーダーを太く */
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3); /* シャドウを強調 */
+  z-index: 5;
+  font-size: clamp(0.9rem, 4vw, 1.1rem); /* フォントサイズを大きく */
+  letter-spacing: 0.5px; /* 文字間隔を少し広げる */
+  text-shadow: 0 1px 0 rgba(255,255,255,0.4); /* テキストに薄いシャドウ */
+}
+
+/* 特にiPhoneの小さい画面用に調整 */
+@media (max-width: 375px) {
+  #chip-display {
+    top: 8px;
+    left: 8px;
+    padding: 5px 12px;
+    font-size: 1rem; /* 小さい画面でも固定サイズに */
+  }
+  
+  /* CHANCE!ランプの調整も合わせて行う */
+  #chance-lamp {
+    top: 8px;
+    right: 8px;
+    font-size: 0.8rem;
+  }
+}
