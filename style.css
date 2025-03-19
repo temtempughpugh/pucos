@@ -1,3 +1,5 @@
+
+/* 基本的なレスポンシブ設計 - 既存のCSSを修正 */
 * {
   box-sizing: border-box;
   font-family: sans-serif;
@@ -7,15 +9,18 @@ body {
   background-color: #f8f8f8;
   display: flex;
   justify-content: center;
-  padding: 20px;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 10px;
 }
 
 #slot-app {
-  max-width: 500px;
   width: 100%;
+  max-width: 500px;
   background-color: #f0f0f0;
   border-radius: 10px;
-  padding: 20px;
+  padding: clamp(10px, 4vw, 20px);
   position: relative;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
@@ -23,9 +28,12 @@ body {
 h1 {
   text-align: center;
   color: #333;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
-/* チップ表示スタイル */
+/* チップ表示のレスポンシブ化 */
 #chip-display {
   position: absolute;
   top: 10px;
@@ -38,6 +46,25 @@ h1 {
   border: 2px solid #333;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   z-index: 5;
+  font-size: clamp(0.8rem, 3vw, 1rem);
+}
+
+/* チャンスランプのレスポンシブ化 */
+#chance-lamp {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: clamp(60px, 20vw, 80px);
+  height: clamp(25px, 8vw, 30px);
+  background-color: #444;
+  color: #777;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border: 1px solid #333;
+  font-size: clamp(0.7rem, 2.5vw, 0.9rem);
 }
 
 /* フィーバーバナー */
@@ -96,11 +123,11 @@ h1 {
   box-shadow: 0 0 10px 5px rgba(255, 255, 0, 0.7);
 }
 
-/* 顔表示 */
+/* 顔表示のレスポンシブ化 */
 #face-display {
-  width: 120px;
-  height: 120px;
-  border-radius: 60px;
+  width: clamp(80px, 30vw, 120px);
+  height: clamp(80px, 30vw, 120px);
+  border-radius: 50%;
   margin: 10px auto;
   display: flex;
   justify-content: center;
@@ -109,22 +136,24 @@ h1 {
   border: 2px solid #333;
   position: relative;
   overflow: hidden;
-  font-size: 80px;
+  font-size: clamp(50px, 20vw, 80px);
   background-size: cover;
   background-position: center;
 }
 
 /* メッセージバブル */
+/* メッセージバブルのレスポンシブ化 */
 #message-bubble {
   background-color: #fff;
   border-radius: 20px;
-  padding: 10px 20px;
+  padding: clamp(8px, 3vw, 10px) clamp(10px, 4vw, 20px);
   margin: 10px auto;
-  max-width: 300px;
+  max-width: clamp(200px, 80%, 300px);
   text-align: center;
   position: relative;
   border: 2px solid #333;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  font-size: clamp(0.8rem, 3vw, 1rem);
 }
 
 #bubble-tail {
@@ -137,7 +166,7 @@ h1 {
   border-color: #333 transparent transparent transparent;
 }
 
-/* リール関連 */
+/* リール関連のレスポンシブ化 */
 #reels-container {
   display: flex;
   justify-content: center;
@@ -147,32 +176,32 @@ h1 {
 }
 
 .reel {
-  width: 60px;
-  height: 80px;
-  margin: 0 5px;
+  width: clamp(40px, 15vw, 60px);
+  height: clamp(60px, 20vw, 80px);
+  margin: 0 clamp(2px, 1vw, 5px);
   background-color: #fff;
   border: 2px solid #333;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: clamp(24px, 8vw, 32px);
   font-weight: bold;
   position: relative;
   overflow: hidden;
 }
 
-/* フィーバー画像スタイル */
+/* フィーバー画像スタイルのレスポンシブ化 */
 .fever-image {
-  width: 50px;
-  height: 70px;
+  width: clamp(30px, 12vw, 50px);
+  height: clamp(40px, 18vw, 70px);
   background-image: url('assets/fever2.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   display: none;
   position: relative;
-  margin: 0 10px;
+  margin: 0 clamp(5px, 2vw, 10px);
 }
 
 .fever-image.active {
@@ -202,19 +231,21 @@ h1 {
 #stop-buttons {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: clamp(5px, 2vw, 10px);
   margin-bottom: 20px;
 }
 
 .stop-button {
-  padding: 8px 16px;
+  padding: clamp(6px, 2vw, 8px) clamp(10px, 3vw, 16px);
   background-color: #dddddd;
   border: none;
   border-radius: 5px;
   cursor: default;
   font-weight: bold;
-  width: 60px;
+  width: clamp(40px, 15vw, 60px);
+  font-size: clamp(0.7rem, 2.5vw, 0.9rem);
 }
+
 
 .stop-button:not(:disabled) {
   background-color: #ff4d4d;
@@ -227,16 +258,16 @@ h1 {
 }
 
 #start-button {
-  padding: 12px 24px;
+  padding: clamp(8px, 3vw, 12px) clamp(16px, 6vw, 24px);
   background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 16px;
+  font-size: clamp(0.9rem, 4vw, 1.1rem);
   transition: all 0.2s ease;
-  min-width: 120px;
+  min-width: clamp(100px, 30vw, 120px);
 }
 
 #start-button:disabled {
@@ -260,7 +291,7 @@ h1 {
 
 #trigger-section h2 {
   text-align: center;
-  font-size: 18px;
+  font-size: clamp(1rem, 4vw, 1.2rem);
   color: #333;
   margin: 0;
 }
@@ -272,20 +303,20 @@ h1 {
   color: #fff;
   padding: 2px 8px;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: clamp(0.7rem, 2.5vw, 0.9rem);
 }
 
 #trigger-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: clamp(8px, 3vw, 15px);
   margin-bottom: 20px;
 }
 
 .trigger-item {
-  width: 60px;
-  height: 60px;
+  width: clamp(50px, 15vw, 60px);
+  height: clamp(50px, 15vw, 60px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -304,8 +335,8 @@ h1 {
 
 /* トリガー画像 */
 .trigger-image {
-  width: 40px;
-  height: 40px;
+  width: clamp(30px, 10vw, 40px);
+  height: clamp(30px, 10vw, 40px);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -343,7 +374,7 @@ h1 {
 .popup-content {
   background-color: white;
   border-radius: 10px;
-  padding: 15px;
+  padding: clamp(10px, 4vw, 15px);
   max-width: 90%;
   max-height: 90%;
   display: flex;
@@ -365,14 +396,14 @@ h1 {
 
 .popup-header h3 {
   margin: 0;
-  font-size: 20px;
+  font-size: clamp(16px, 5vw, 20px);
   color: #333;
 }
 
 .close-button {
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: clamp(20px, 6vw, 24px);
   cursor: pointer;
   color: #666;
   padding: 0 5px;
@@ -383,8 +414,8 @@ h1 {
 }
 
 .popup-image {
-  width: 250px;
-  height: 250px;
+  width: clamp(180px, 60vw, 250px);
+  height: clamp(180px, 60vw, 250px);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -395,7 +426,7 @@ h1 {
 .popup-info {
   margin-top: 15px;
   text-align: center;
-  font-size: 16px;
+  font-size: clamp(14px, 4vw, 16px);
   color: #555;
 }
 
@@ -425,13 +456,13 @@ h1 {
   right: -5px;
   background-color: #ff4d4d;
   color: white;
-  width: 20px;
-  height: 20px;
+  width: clamp(16px, 5vw, 20px);
+  height: clamp(16px, 5vw, 20px);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
+  font-size: clamp(10px, 3vw, 12px);
   font-weight: bold;
   border: 1px solid white;
 }
@@ -441,7 +472,7 @@ h1 {
   font-size: 0;
   font-weight: bold;
   color: transparent;
-  height: 40px;
+  height: clamp(30px, 10vw, 40px);
   transition: all 1.0s ease;
   display: flex;
   justify-content: center;
@@ -450,7 +481,7 @@ h1 {
 }
 
 #trigger-comp-message.completed {
-  font-size: 24px;
+  font-size: clamp(18px, 6vw, 24px);
   color: #ff6b6b;
   background: linear-gradient(45deg, #ffd700, #ff6b6b, #4caf50, #1e90ff);
   background-size: 300% 300%;
@@ -1154,4 +1185,68 @@ body {
   overflow-y: auto;
   width: 100%;
   height: 100%;
+}
+/* メディアクエリで画面サイズ別の調整 */
+@media (max-width: 375px) {
+  /* 特に小さい画面用の調整 */
+  #reels-container {
+    margin: 10px 0;
+  }
+  
+  #stop-buttons {
+    margin-bottom: 10px;
+  }
+  
+  #trigger-section {
+    margin-top: 20px;
+    padding-top: 15px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* タブレット以上のサイズでの調整 */
+  #slot-app {
+    padding: 25px;
+    border-radius: 15px;
+  }
+  
+  #stop-buttons {
+    margin-bottom: 25px;
+  }
+  
+  #trigger-section {
+    margin-top: 35px;
+    padding-top: 25px;
+  }
+}
+
+/* 通知関連のレスポンシブ化 */
+.fever-notification-text,
+.fever-end-text,
+.sankon-chance-text,
+.chance-text,
+.punkos-complete-text {
+  font-size: clamp(30px, 10vw, 48px);
+}
+
+.fever-notification-image,
+.fever-end-image,
+.sankon-chance-image,
+.chance-image {
+  width: clamp(150px, 40vw, 200px);
+  height: clamp(150px, 40vw, 200px);
+}
+
+.punkos-char {
+  font-size: clamp(60px, 15vw, 86px);
+}
+
+.fever-end-payout {
+  font-size: clamp(24px, 8vw, 36px);
+}
+
+/* リスタートボタンのレスポンシブ化 */
+#restart-button {
+  padding: clamp(8px, 3vw, 12px) clamp(16px, 6vw, 24px);
+  font-size: clamp(0.9rem, 4vw, 1.1rem);
 }
