@@ -1127,3 +1127,31 @@ z
   color: #666;
   margin-bottom: 15px;
 }
+
+/* より強力なズーム防止措置 */
+* {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* テキスト選択によるズームを防止 */
+p, h1, h2, h3, div, span {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* スクロールしながらもズームを防止 */
+html {
+  overflow-x: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+body {
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+}

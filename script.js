@@ -722,6 +722,7 @@ function endFeverMode() {
   // 拡大画像表示
   // 拡大画像表示
 // 拡大画像表示（トリガーコメント表示対応）
+// 拡大画像表示（トリガーコメント表示対応）- トリガー名なし
 function showEnlargedImage(imageType, triggerId) {
   // すでに表示されていればそれを削除
   const existingPopup = document.getElementById('image-popup');
@@ -729,8 +730,7 @@ function showEnlargedImage(imageType, triggerId) {
     document.body.removeChild(existingPopup);
   }
   
-  // トリガー名と説明コメントを取得
-  const triggerName = getTriggerName(triggerId);
+  // 説明コメントを取得
   const triggerComment = getTriggerComment(triggerId);
   const triggerCount = triggers[triggerId].count;
   
@@ -746,7 +746,6 @@ function showEnlargedImage(imageType, triggerId) {
       </div>
       <div class="popup-image" style="background-image: url('assets/${imageType}.png')"></div>
       <div class="popup-info">
-        <p class="popup-trigger-name">${triggerName}</p>
         <p class="popup-trigger-comment">${triggerComment}</p>
         <p>獲得回数: ${triggerCount}回</p>
       </div>

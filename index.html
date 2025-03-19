@@ -27,6 +27,8 @@
       user-select: none;
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+</head>
 </head>
 <body>
   <div id="slot-app">
@@ -97,6 +99,38 @@
     document.documentElement.addEventListener('gesturestart', function(event) {
       event.preventDefault();
     }, { passive: false });
+    (function() {
+      // すべてのタッチイベントでズーム操作を無効化
+      document.addEventListener('touchstart', function(event) {
+        if (event.touches.length > 1) {
+          event.preventDefault();
+        }
+      }, { passive: false });
+      
+      var lastTouchEnd = 0;
+      document.addEventListener('touchend', function(event) {
+        // 300ms以内の2回タップを検出して防止（ダブルタップズーム対策）
+        var now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, { passive: false });
+      
+      // iOS特有のジェスチャーを無効化
+      document.addEventListener('gesturechange', function(event) {
+        event.preventDefault();
+      });
+      
+      document.addEventListener('gestureend', function(event) {
+        event.preventDefault();
+      });
+    })();
+    
+    // クリックイベントの即時反応（300ms遅延の解消）
+    document.addEventListener('DOMContentLoaded', function() {
+      FastClick.attach(document.body);
+    });
   </script>
 </body>
 </html>
