@@ -227,57 +227,60 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // フィーバーモード開始
-  function startFeverMode() {
-    isFeverMode = true;
-    feverSpinsRemaining = 10;
-    feverTotalPayout = 0;
-    
-    // フィーバー画像を表示
-    feverImageLeft.classList.add('active');
-    feverImageRight.classList.add('active');
-    
-    // フィーバーバナーを表示
-    feverBanner.classList.add('active');
-    
-    // メッセージ表示
-    messageBubble.textContent = 'フィーバータイム中';
-    
-    // 顔画像をフィーバー用に変更
-    faceDisplay.style.backgroundImage = `url(assets/fever1.png)`;
-    
-    // 虹色の縁を維持
-    faceDisplay.classList.add('rainbow-border');
-  }
+// フィーバーモード開始（通知表示対応）
+function startFeverMode() {
+  isFeverMode = true;
+  feverSpinsRemaining = 10;
+  feverTotalPayout = 0;
+  
+  // フィーバー開始通知を表示
+  showFeverNotification();
+  
+  // フィーバー画像を表示
+  feverImageLeft.classList.add('active');
+  feverImageRight.classList.add('active');
+  
+  // フィーバーバナーを表示
+  feverBanner.classList.add('active');
+  
+  // メッセージ表示
+  messageBubble.textContent = 'フィーバータイム中';
+  
+  // 顔画像をフィーバー用に変更
+  faceDisplay.style.backgroundImage = `url(assets/fever1.png)`;
+  
+  // 虹色の縁を維持
+  faceDisplay.classList.add('rainbow-border');
+}
   
   // フィーバーモード終了
-  function endFeverMode() {
-    isFeverMode = false;
-    
-    // フィーバー画像を非表示
-    feverImageLeft.classList.remove('active');
-    feverImageRight.classList.remove('active');
-    
-    // フィーバーバナーを非表示
-    feverBanner.classList.remove('active');
-    
-    // 顔画像を通常に戻す
-    setFaceDisplay('normal');
-    
-    // サンコンチャンスモード中でなければ虹色の縁を削除
-    if (!isSankonChanceMode) {
-      faceDisplay.classList.remove('rainbow-border');
-    }
-    
-    messageBubble.textContent = `フィーバータイム終了！合計${feverTotalPayout}枚獲得しました！`;
-    
-    // チップがない場合はゲームオーバー表示
-    if (chipCount <= 0) {
-      chipCount = 0;
-      updateChipDisplay();
-      startButton.disabled = true;
-      showGameOver();
-    }
+// フィーバーモード終了（サンコンチャンスへの移行をスムーズに）
+function endFeverMode() {
+  isFeverMode = false;
+  
+  // フィーバー画像を非表示
+  feverImageLeft.classList.remove('active');
+  feverImageRight.classList.remove('active');
+  
+  // フィーバーバナーを非表示
+  feverBanner.classList.remove('active');
+  
+  // 顔画像を通常に戻す
+  setFaceDisplay('normal');
+  
+  // チップがない場合はゲームオーバー表示
+  if (chipCount <= 0) {
+    chipCount = 0;
+    updateChipDisplay();
+    startButton.disabled = true;
+    showGameOver();
+    return; // ゲームオーバーの場合はサンコンチャンスに移行しない
   }
+  
+  // フィーバー終了通知（サンコンチャンスへの移行を含む）
+  showFeverEndNotification();
+  // 注意: ここではサンコンチャンスを直接開始せず、通知内で処理
+}
   
   // サンコンチャンスモード開始
   function startSankonChanceMode() {
@@ -323,7 +326,111 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 3000);
     }, 100);
   }
+  function showFeverNotification() {
+    const notification = document.createElement('div');
+    notification.className = 'fever-notification';
+    notification.innerHTML = `
+      <div class="fever-notification-image"></div>
+      <span class="fever-notification-text">フィーバータイム！</span>
+    `;
+    document.body.appendChild(notification);
+    
+    // アニメーション開始
+    setTimeout(() => {
+      notification.classList.add('show');
+      
+      // 3秒後に非表示
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 500);
+      }, 3000);
+    }, 100);
+  }
   
+  // フィーバーモード終了通知
+  function showFeverEndNotification() {
+    const notification = document.createElement('div');
+    notification.className = 'fever-end-notification';
+    notification.innerHTML = `
+      <div class="fever-end-image"></div>
+      <span class="fever-end-text">フィーバータイム終了！</span>
+      <span class="fever-end-payout">獲得: ${feverTotalPayout}枚</span>
+    `;
+    document.body.appendChild(notification);
+    
+    // アニメーション開始
+    setTimeout(() => {
+      notification.classList.add('show');
+      
+      // 3秒後に非表示
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+          
+          // フィーバー終了通知の後にサンコンチャンス開始
+          startSankonChanceMode();
+        }, 500);
+      }, 3000);
+    }, 100);
+  }
+  
+  // ぷんこす完成通知（より派手に）
+  function showPunkosCompletion() {
+    const notification = document.createElement('div');
+    notification.className = 'punkos-completion-notification';
+    notification.innerHTML = `
+      <div class="punkos-chars-container">
+        <span class="punkos-char" id="punkos-p">ぷ</span>
+        <span class="punkos-char" id="punkos-n">ん</span>
+        <span class="punkos-char" id="punkos-k">こ</span>
+        <span class="punkos-char" id="punkos-s">す</span>
+      </div>
+      <span class="punkos-complete-text">完成！</span>
+    `;
+    document.body.appendChild(notification);
+    
+    // アニメーション開始
+    setTimeout(() => {
+      notification.classList.add('show');
+      
+      // 文字を一つずつ表示（より遅延をつけて表示）
+      setTimeout(() => document.getElementById('punkos-p').classList.add('show'), 600);
+      setTimeout(() => document.getElementById('punkos-n').classList.add('show'), 1200);
+      setTimeout(() => document.getElementById('punkos-k').classList.add('show'), 1800);
+      setTimeout(() => document.getElementById('punkos-s').classList.add('show'), 2400);
+      
+      // 完成テキストを表示（より長く待機）
+      setTimeout(() => {
+        document.querySelector('.punkos-complete-text').classList.add('show');
+      }, 3600);
+      
+      // 6秒後に非表示（より長く表示）
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 500);
+      }, 6000);
+    }, 100);
+  }
+  
+  // トリガーコメントを取得
+  function getTriggerComment(triggerId) {
+    switch(triggerId) {
+      case 'ぷんこす': return 'おめでとう、ぷんこすの完成だね。美味しいぷんこすをどうぞ！';
+      case 'うんこ': return 'オエ...臭いよ...';
+      case 'ちんこ': return 'ちん...ちょっと引くわ...';
+      case 'うらすじ': return 'おい、うらすじだって？';
+      case 'ちりめん': return 'ちりめん';
+      case 'さんこん': return 'イッコンニコンサンコンです！！';
+      case 'ぷんこ': return 'あれ...惜しいんじゃない？４択外した気分はどう？';
+      default: return '';
+    }
+  }
+
   // サンコンチャンスモード終了
   function endSankonChanceMode() {
     isSankonChanceMode = false;
@@ -613,60 +720,66 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 拡大画像表示
-  function showEnlargedImage(imageType, triggerId) {
-    // すでに表示されていればそれを削除
-    const existingPopup = document.getElementById('image-popup');
-    if (existingPopup) {
-      document.body.removeChild(existingPopup);
-    }
-    
-    // 新しいポップアップを作成
-    const popup = document.createElement('div');
-    popup.id = 'image-popup';
-    popup.className = 'image-popup';
-    
-    // トリガー名は表示せず、獲得回数だけ表示
-    const triggerCount = triggers[triggerId].count;
-    
-    popup.innerHTML = `
-      <div class="popup-content">
-        <div class="popup-header">
-          <button class="close-button">&times;</button>
-        </div>
-        <div class="popup-image" style="background-image: url('assets/${imageType}.png')"></div>
-        <div class="popup-info">
-          <p>獲得回数: ${triggerCount}回</p>
-        </div>
-      </div>
-    `;
-    
-    // 閉じるボタンイベント
-    popup.querySelector('.close-button').addEventListener('click', () => {
-      closePopup(popup);
-    });
-    
-    // 背景クリックでも閉じる
-    popup.addEventListener('click', (e) => {
-      if (e.target === popup) {
-        closePopup(popup);
-      }
-    });
-    
-    // ESCキーでも閉じる
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && document.getElementById('image-popup')) {
-        closePopup(popup);
-      }
-    });
-    
-    // ポップアップを表示
-    document.body.appendChild(popup);
-    
-    // アニメーション用にタイムアウト
-    setTimeout(() => {
-      popup.classList.add('show');
-    }, 10);
+  // 拡大画像表示
+// 拡大画像表示（トリガーコメント表示対応）
+function showEnlargedImage(imageType, triggerId) {
+  // すでに表示されていればそれを削除
+  const existingPopup = document.getElementById('image-popup');
+  if (existingPopup) {
+    document.body.removeChild(existingPopup);
   }
+  
+  // トリガー名と説明コメントを取得
+  const triggerName = getTriggerName(triggerId);
+  const triggerComment = getTriggerComment(triggerId);
+  const triggerCount = triggers[triggerId].count;
+  
+  // 新しいポップアップを作成
+  const popup = document.createElement('div');
+  popup.id = 'image-popup';
+  popup.className = 'image-popup';
+  
+  popup.innerHTML = `
+    <div class="popup-content">
+      <div class="popup-header">
+        <button class="close-button">&times;</button>
+      </div>
+      <div class="popup-image" style="background-image: url('assets/${imageType}.png')"></div>
+      <div class="popup-info">
+        <p class="popup-trigger-name">${triggerName}</p>
+        <p class="popup-trigger-comment">${triggerComment}</p>
+        <p>獲得回数: ${triggerCount}回</p>
+      </div>
+    </div>
+  `;
+  
+  // 閉じるボタンイベント
+  popup.querySelector('.close-button').addEventListener('click', () => {
+    closePopup(popup);
+  });
+  
+  // 背景クリックでも閉じる
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) {
+      closePopup(popup);
+    }
+  });
+  
+  // ESCキーでも閉じる
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('image-popup')) {
+      closePopup(popup);
+    }
+  });
+  
+  // ポップアップを表示
+  document.body.appendChild(popup);
+  
+  // アニメーション用にタイムアウト
+  setTimeout(() => {
+    popup.classList.add('show');
+  }, 10);
+}
 
   // ポップアップを閉じる
   function closePopup(popup) {
@@ -764,8 +877,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // ぷんこす完成時にも虹色の縁を追加
       faceDisplay.classList.add('rainbow-border');
       
-      // スタートボタンを無効化して3秒間表示
-      startButton.disabled = true;
+      // ぷんこす完成アニメーションを表示（より派手に）
+      showPunkosCompletion();
       
       // 演出順序の整理：ぷんこす完成→新規獲得→フィーバータイム開始表示→フィーバータイム
       setTimeout(() => {
@@ -777,7 +890,7 @@ document.addEventListener('DOMContentLoaded', () => {
           endSankonChanceMode();
         }
         
-        // 1秒後にフィーバータイム開始表示
+        // 2秒後にフィーバータイム開始表示
         setTimeout(() => {
           messageBubble.textContent = 'フィーバータイム開始！';
           
@@ -785,8 +898,8 @@ document.addEventListener('DOMContentLoaded', () => {
           setTimeout(() => {
             startFeverMode();
           }, 2000);
-        }, 1000);
-      }, 3000);
+        }, 2000);
+      }, 7000); // アニメーション終了後に処理を実行するため、時間を伸ばす（さらに1秒追加）
       
     } else if (combination.startsWith('ぷんこ') && !combination.endsWith('す')) {
       messageBubble.textContent = 'あれ...惜しいんじゃない？４択外した気分はどう？';
@@ -1855,8 +1968,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // ぷんこす完成時にも虹色の縁を追加
       faceDisplay.classList.add('rainbow-border');
       
-      // スタートボタンを無効化して3秒間表示
+      // スタートボタンを無効化して演出の間表示
       startButton.disabled = true;
+      
+      // ぷんこす完成アニメーションを表示
+      showPunkosCompletion();
       
       // 演出順序の整理：ぷんこす完成→新規獲得→フィーバータイム開始表示→フィーバータイム
       setTimeout(() => {
@@ -1868,7 +1984,7 @@ document.addEventListener('DOMContentLoaded', () => {
           endSankonChanceMode();
         }
         
-        // 1秒後にフィーバータイム開始表示
+        // 2秒後にフィーバータイム開始表示
         setTimeout(() => {
           messageBubble.textContent = 'フィーバータイム開始！';
           
@@ -1876,8 +1992,8 @@ document.addEventListener('DOMContentLoaded', () => {
           setTimeout(() => {
             startFeverMode();
           }, 2000);
-        }, 1000);
-      }, 3000);
+        }, 2000);
+      }, 6000); // アニメーション終了後に処理を実行するため、時間を伸ばす
       
     } else if (combination.startsWith('ぷんこ') && !combination.endsWith('す')) {
       messageBubble.textContent = 'あれ...惜しいんじゃない？４択外した気分はどう？';

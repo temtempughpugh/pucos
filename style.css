@@ -822,3 +822,308 @@ h1 {
 #debug-reset {
   background-color: #f44336;
 }
+
+/* フィーバータイム通知 */
+.fever-notification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1.0s ease;
+}
+
+.fever-notification.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fever-notification-image {
+  width: 200px;
+  height: 200px;
+  background-image: url('assets/fever1.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 30px;
+  animation: pulse 1s infinite alternate;
+}
+
+.fever-notification-text {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ff3300;
+  text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00;
+  animation: flicker 1.0s infinite alternate;
+}
+
+/* フィーバータイム終了通知 */
+.fever-end-notification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1.0s ease;
+}
+
+.fever-end-notification.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fever-end-image {
+  width: 200px;
+  height: 200px;
+  background-image: url('assets/fever1.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 20px;
+  animation: spin 1.5s infinite linear;
+}
+
+.fever-end-text {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ffcc00;
+  text-shadow: 0 0 10px #ff5500, 0 0 20px #ff5500;
+  margin-bottom: 15px;
+}
+
+.fever-end-payout {
+  font-size: 36px;
+  font-weight: bold;
+  color: #4caf50;
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ぷんこす完成通知（より派手に） */
+.punkos-completion-notification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+  background: radial-gradient(circle at center, rgba(255, 215, 0, 0.3) 0%, rgba(0, 0, 0, 0.85) 70%);
+}
+
+.punkos-completion-notification.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.punkos-chars-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.punkos-char {
+  font-size: 86px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0 15px;
+  opacity: 0;
+  transform: scale(0.5) rotate(-10deg);
+  transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-shadow: 0 0 15px #ffcc00, 0 0 30px #ff5500;
+}
+
+.punkos-char.show {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.punkos-complete-text {
+  font-size: 92px;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 0 20px #ff5500, 0 0 40px #ff5500;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.punkos-complete-text.show {
+  opacity: 1;
+  transform: scale(1);
+  animation: grand-sparkle 1.5s ease infinite;
+}
+
+@keyframes grand-sparkle {
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.3); filter: brightness(1.8); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+/* ポップアップのトリガーコメント用スタイル */
+.popup-trigger-name {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.popup-trigger-comment {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+
+z
+
+/* フィーバータイム通知 */
+.fever-notification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1.0s ease;
+}
+
+.fever-notification.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fever-notification-image {
+  width: 200px;
+  height: 200px;
+  background-image: url('assets/fever1.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 30px;
+  animation: pulse 1s infinite alternate;
+}
+
+.fever-notification-text {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ff3300;
+  text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00;
+  animation: flicker 1.0s infinite alternate;
+}
+
+/* ぷんこす完成通知 */
+.punkos-completion-notification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+}
+
+.punkos-completion-notification.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.punkos-chars-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.punkos-char {
+  font-size: 64px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0 10px;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.punkos-char.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.punkos-complete-text {
+  font-size: 72px;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 0 10px #ff5500, 0 0 20px #ff5500;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.punkos-complete-text.show {
+  opacity: 1;
+  transform: scale(1);
+  animation: sparkle 1s ease;
+}
+
+@keyframes sparkle {
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.2); filter: brightness(1.5); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+/* ポップアップのトリガーコメント用スタイル */
+.popup-trigger-name {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.popup-trigger-comment {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 15px;
+}
