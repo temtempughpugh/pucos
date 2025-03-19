@@ -67,6 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let isReplay = false; // リプレイフラグ
   let replayShown = false; // リプレイ表示済みフラグ
   let newTriggerShown = false; // 新規トリガー獲得表示済みフラグ
+  let isPunkosCompleted = false; // ぷんこす完成フラグ
+
   
   // 初期化: トリガーリストの表示
   updateTriggerList();
@@ -355,7 +357,7 @@ function endFeverMode() {
     notification.className = 'fever-end-notification';
     notification.innerHTML = `
       <div class="fever-end-image"></div>
-      <span class="fever-end-text">フィーバータイム終了！</span>
+      <span class="fever-end-text">フィーバー終了！<br>次回サンコンチャンス継続！</span>
       <span class="fever-end-payout">獲得: ${feverTotalPayout}枚</span>
     `;
     document.body.appendChild(notification);
@@ -451,7 +453,7 @@ function endFeverMode() {
     notification.className = 'chance-notification';
     notification.innerHTML = `
       <div class="chance-image"></div>
-      <span class="chance-text">チャンス！</span>
+      <span class="chance-text">大チャンス！</span>
     `;
     document.body.appendChild(notification);
     
@@ -477,6 +479,22 @@ function endFeverMode() {
   
   // 全てのリールを回転開始
   function startAll() {
+    // ぷんこす完成後のスタートボタン押下時の特別処理
+    if (isPunkosCompleted) {
+      // フラグリセット
+      isPunkosCompleted = false;
+      
+      // ボタンテキストを戻す
+      startButton.textContent = 'スタート';
+      
+      // フィーバータイム開始
+      messageBubble.textContent = 'フィーバータイム開始！';
+      setTimeout(() => {
+        startFeverMode();
+      }, 1000);
+      
+      return; // 通常処理をスキップ
+    }
     // 回転中であれば停止操作に変更
     if (gameState === 'spinning') {
       handleStopAction();
@@ -876,7 +894,10 @@ function showEnlargedImage(imageType, triggerId) {
       // ぷんこす完成時にも虹色の縁を追加
       faceDisplay.classList.add('rainbow-border');
       
-      // ぷんこす完成アニメーションを表示（より派手に）
+      // スタートボタンを無効化して3秒間表示
+      startButton.disabled = true;
+      
+      // ぷんこす完成アニメーションを表示
       showPunkosCompletion();
       
       // 演出順序の整理：ぷんこす完成→新規獲得→フィーバータイム開始表示→フィーバータイム
@@ -889,17 +910,24 @@ function showEnlargedImage(imageType, triggerId) {
           endSankonChanceMode();
         }
         
-        // 2秒後にフィーバータイム開始表示
+        // ここに追加：ぷんこす完成フラグをセット
+        isPunkosCompleted = true;
+        
+        // ここを変更：フィーバータイム開始の代わりにスタートボタンのテキストを変更
         setTimeout(() => {
-          messageBubble.textContent = 'フィーバータイム開始！';
-          
-          // さらに2秒後にフィーバータイム開始
-          setTimeout(() => {
-            startFeverMode();
-          }, 2000);
+          startButton.textContent = 'フィーバー開始';
+          startButton.disabled = false; // 操作可能に設定
         }, 2000);
-      }, 7000); // アニメーション終了後に処理を実行するため、時間を伸ばす（さらに1秒追加）
-      
+        
+        // 以下のフィーバータイム自動開始コードは削除する
+        // setTimeout(() => {
+        //   messageBubble.textContent = 'フィーバータイム開始！';
+        //   
+        //   setTimeout(() => {
+        //     startFeverMode();
+        //   }, 2000);
+        // }, 2000);
+      }, 7000); // アニメーション終了後に処理を実行
     } else if (combination.startsWith('ぷんこ') && !combination.endsWith('す')) {
       messageBubble.textContent = 'あれ...惜しいんじゃない？４択外した気分はどう？';
       setFaceDisplay('close');
