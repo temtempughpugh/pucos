@@ -32,7 +32,9 @@
   <div id="slot-app">
     <h1>ぷんこすスロット</h1>
     
+    <div id="fever-banner">フィーバータイム中～</div>
     <div id="chance-lamp">CHANCE!</div>
+    <div id="chip-display">チップ: <span id="chip-count">200</span></div>
     
     <div id="face-display"></div>
     
@@ -42,10 +44,12 @@
     </div>
     
     <div id="reels-container">
+      <div class="fever-image left"></div>
       <div class="reel" id="reel0"></div>
       <div class="reel" id="reel1"></div>
       <div class="reel" id="reel2"></div>
       <div class="reel" id="reel3"></div>
+      <div class="fever-image right"></div>
     </div>
     
     <div id="stop-buttons">
@@ -65,6 +69,18 @@
       </div>
       <div id="trigger-list"></div>
       <div id="trigger-comp-message">コンプリート！</div>
+    </div>
+    
+    <!-- デバッグメニュー (開発時のみ表示) -->
+    <div id="debug-menu" style="display: block; margin-top: 20px; padding: 10px; border: 1px dashed #999;">
+      <h3>デバッグメニュー</h3>
+      <button id="debug-add-chips">チップ追加</button>
+      <button id="debug-chance">チャンス強制</button>
+      <button id="debug-sankon-chance">サンコンチャンス</button>
+      <button id="debug-fever">フィーバー</button>
+      <button id="debug-replay">リプレイ強制</button>
+      <button id="debug-comp">全コンプ</button>
+      <button id="debug-reset">リセット</button>
     </div>
   </div>
   
